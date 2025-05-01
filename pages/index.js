@@ -21,17 +21,19 @@ export default function Home() {
     scene.add(ambientLight, directionalLight1, directionalLight2)
 
     const loader = new THREE.ObjectLoader()
-    const geometry = new THREE.BoxGeometry()
-const material = new THREE.MeshStandardMaterial({ color: 'red' })
-const cube = new THREE.Mesh(geometry, material)
-scene.add(cube)
+    loader.load(
+      'https://raw.githubusercontent.com/borgirnitin/Head/main/head-compress.json',
+      function (object) {
+        object.scale.set(3, 3, 3)
+        object.position.set(0, -1, 0)
+        scene.add(object)
 
-const animate = () => {
-  requestAnimationFrame(animate)
-  cube.rotation.y += 0.01
-  renderer.render(scene, camera)
-}
-animate()
+        const animate = () => {
+          requestAnimationFrame(animate)
+          object.rotation.y += 0.01
+          renderer.render(scene, camera)
+        }
+        animate()
       },
       undefined,
       function (error) {
@@ -46,6 +48,7 @@ animate()
     }
 
     window.addEventListener('resize', handleResize)
+
     return () => {
       window.removeEventListener('resize', handleResize)
       renderer.dispose()
