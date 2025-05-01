@@ -54,5 +54,32 @@ export default function Home() {
     }
   }, [])
 
-  return <div ref={containerRef} style={{ width: '100vw', height: '100vh', overflow: 'hidden' }} />
+  return (
+    <div
+      ref={containerRef}
+      style={{
+        width: '100vw',
+        height: '100vh',
+        backgroundColor: '#0a0a0a',
+        overflow: 'hidden',
+        position: 'relative',
+        borderRadius: '16px',
+        boxShadow: '0 8px 32px rgba(0,0,0,0.35)'
+      }}
+    >
+      <div
+        style={{
+          position: 'absolute',
+          top: 16,
+          left: 20,
+          color: '#ffffff90',
+          fontSize: '14px',
+          fontFamily: 'sans-serif',
+          zIndex: 10
+        }}
+      >
+        Drag to rotate
+      </div>
+    </div>
+  )
 }
