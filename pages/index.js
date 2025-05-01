@@ -7,28 +7,30 @@ export default function Home() {
   useEffect(() => {
     const scene = new THREE.Scene()
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
-    camera.position.z = 5
+    camera.position.z = 2.5
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
     renderer.setSize(window.innerWidth, window.innerHeight)
     containerRef.current.appendChild(renderer.domElement)
 
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.7)
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5)
-    directionalLight.position.set(5, 5, 5)
-    scene.add(ambientLight, directionalLight)
+    const directionalLight1 = new THREE.DirectionalLight(0xffffff, 0.6)
+    directionalLight1.position.set(5, 5, 5)
+    const directionalLight2 = new THREE.DirectionalLight(0xffffff, 0.4)
+    directionalLight2.position.set(-5, -5, -5)
+    scene.add(ambientLight, directionalLight1, directionalLight2)
 
     const loader = new THREE.ObjectLoader()
     loader.load(
       'https://raw.githubusercontent.com/borgirnitin/Head/main/head-compress.json',
-      function (obj) {
-        obj.scale.set(1.5, 1.5, 1.5)
-        scene.add(obj)
+      function (object) {
+        object.scale.set(3, 3, 3)
+        object.position.set(0, -1, 0)
+        scene.add(object)
 
         const animate = () => {
           requestAnimationFrame(animate)
-          obj.rotation.y += 0.005
-          obj.rotation.x += 0.002
+          object.rotation.y += 0.01
           renderer.render(scene, camera)
         }
         animate()
